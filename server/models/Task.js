@@ -19,25 +19,25 @@ Task.virtual("creator", {
 });
 
 //CASCADE ON DELETE
-Task.pre("deleteMany", function (next) {
-  //lets find all the Tasks and remove them
-  Promise.all([
-    //something like...
-    //dbContext.Comment.deleteMany({ TaskId: this._conditions_id }),
-  ])
-    .then(() => next())
-    .catch((err) => next(err));
-});
+// Task.pre("deleteMany", function (next) {
+//   //lets find all the Tasks and remove them
+//   Promise.all([
+//     //something like...
+//     //dbContext.Comment.deleteMany({ TaskId: this._conditions_id }),
+//   ])
+//     .then(() => next())
+//     .catch((err) => next(err));
+// });
 
-//CASCADE ON DELETE
-Task.pre("findOneAndRemove", function (next) {
-  //lets find all the tasks and remove them
-  Promise.all([
-    // REVIEW check if ({TaskId or ListId or BoardId})
-    // dbContext.Comment.deleteMany({ TaskId: this._conditions._id })
-  ])
-    .then(() => next())
-    .catch((err) => next(err));
-});
+// //CASCADE ON DELETE
+// Task.pre("findOneAndRemove", function (next) {
+//   //lets find all the tasks and remove them
+//   Promise.all([
+//     // REVIEW check if ({TaskId or ListId or BoardId})
+//     // dbContext.Comment.deleteMany({ TaskId: this._conditions._id })
+//   ])
+//     .then(() => next())
+//     .catch((err) => next(err));
+// });
 
 export default Task;
