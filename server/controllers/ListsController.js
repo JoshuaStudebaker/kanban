@@ -2,6 +2,7 @@ import express from "express";
 import BaseController from "../utils/BaseController";
 import auth0provider from "@bcwdev/auth0provider";
 import { listService } from "../services/ListService";
+// import { taskService } from "../services/TaskService";
 
 //PUBLIC
 export class ListsController extends BaseController {
@@ -9,23 +10,40 @@ export class ListsController extends BaseController {
     super("api/lists");
     this.router
       .use(auth0provider.getAuthorizedUserInfo)
-      // .get("", this.getAll)
-      // .get("/:id", this.getById)
-      .get("/:id/tasks", this.getTasksByListId)
+      .get("", this.getAll)
+      .get("/:id", this.getById)
+      // .get("/:id/tasks", this.getTasksByListId)
       .post("", this.create)
       .put("/:id", this.edit)
       .delete("/:id", this.delete);
   }
-
-  async getTasksByListId(req, res, next) {
+  async getAll(req, res, next) {
     try {
-      //only gets boards by user who is logged in
-      let data = await tasksService.find({ listId: req.params.id });
+      //only gets lists by user who is logged in
+      let data = await listService.getAll(req.userInfo.email);
       return res.send(data);
     } catch (err) {
       next(err);
     }
   }
+  async getById(req, res, next) {
+    try {
+      let data = await listService.getById(req.params.id, req.userInfo.email);
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  // async getTasksByListId(req, res, next) {
+  //   try {
+  //     //only gets boards by user who is logged in
+  //     let data = await taskService.find({ listId: req.params.id });
+  //     return res.send(data);
+  //   } catch (err) {
+  //     next(err);
+  //   }
+  // }
 
   async create(req, res, next) {
     try {
@@ -58,22 +76,4 @@ export class ListsController extends BaseController {
       next(error);
     }
   }
-
-  // // async getAll(req, res, next) {
-  // //   try {
-  // //     //only gets lists by user who is logged in
-  // //     let data = await listService.getAll(req.userInfo.email);
-  // //     return res.send(data);
-  // //   } catch (err) {
-  // //     next(err);
-  // //   }
-  // // }
-  // async getById(req, res, next) {
-  //   try {
-  //     let data = await listService.getById(req.params.id, req.userInfo.email);
-  //     return res.send(data);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
 }

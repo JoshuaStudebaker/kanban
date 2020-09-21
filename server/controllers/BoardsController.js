@@ -2,6 +2,7 @@ import express from "express";
 import BaseController from "../utils/BaseController";
 import auth0provider from "@bcwdev/auth0provider";
 import { boardService } from "../services/BoardService";
+import { listService } from "../services/ListService";
 
 //PUBLIC
 export class BoardsController extends BaseController {
@@ -30,7 +31,7 @@ export class BoardsController extends BaseController {
   async getListsByBoardId(req, res, next) {
     try {
       //only gets boards by user who is logged in
-      let data = await listsService.find({ boardId: req.params.id });
+      let data = await listService.find({ boardId: req.params.id });
       return res.send(data);
     } catch (err) {
       next(err);

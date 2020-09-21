@@ -2,6 +2,7 @@ import express from "express";
 import BaseController from "../utils/BaseController";
 import auth0provider from "@bcwdev/auth0provider";
 import { taskService } from "../services/TaskService";
+import { commentService } from "../services/CommentService";
 
 //PUBLIC
 export class TasksController extends BaseController {
@@ -20,7 +21,7 @@ export class TasksController extends BaseController {
   async getCommentsByTaskId(req, res, next) {
     try {
       //only gets boards by user who is logged in
-      let data = await commentsService.find({ taskId: req.params.id });
+      let data = await commentService.find({ taskId: req.params.id });
       return res.send(data);
     } catch (err) {
       next(err);
