@@ -10,8 +10,8 @@ export class TasksController extends BaseController {
     super("api/tasks");
     this.router
       .use(auth0provider.getAuthorizedUserInfo)
-      // .get("", this.getAll)
-      // .get("/:id", this.getById)
+      .get("", this.getAll)
+      .get("/:id", this.getById)
       .get("/:id/comments", this.getCommentsByTaskId)
       .post("", this.create)
       .put("/:id", this.edit)
@@ -60,21 +60,21 @@ export class TasksController extends BaseController {
     }
   }
 
-  // // async getAll(req, res, next) {
-  // //   try {
-  // //     //only gets tasks by user who is logged in
-  // //     let data = await taskService.getAll(req.userInfo.email);
-  // //     return res.send(data);
-  // //   } catch (err) {
-  // //     next(err);
-  // //   }
-  // // }
-  // async getById(req, res, next) {
-  //   try {
-  //     let data = await taskService.getById(req.params.id, req.userInfo.email);
-  //     return res.send(data);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+  async getAll(req, res, next) {
+    try {
+      //only gets tasks by user who is logged in
+      let data = await taskService.getAll(req.userInfo.email);
+      return res.send(data);
+    } catch (err) {
+      next(err);
+    }
+  }
+  async getById(req, res, next) {
+    try {
+      let data = await taskService.getById(req.params.id, req.userInfo.email);
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
 }

@@ -9,8 +9,8 @@ export class CommentsController extends BaseController {
     super("api/comments");
     this.router
       .use(auth0provider.getAuthorizedUserInfo)
-      // .get("", this.getAll)
-      // .get("/:id", this.getById)
+      .get("", this.getAll)
+      .get("/:id", this.getById)
       // .get("/:id/votes", this.getVotesByCommentId)
       .post("", this.create)
       .put("/:id", this.edit)
@@ -59,21 +59,24 @@ export class CommentsController extends BaseController {
   //   }
   // }
 
-  // // async getAll(req, res, next) {
-  // //   try {
-  // //     //only gets comments by user who is logged in
-  // //     let data = await commentService.getAll(req.userInfo.email);
-  // //     return res.send(data);
-  // //   } catch (err) {
-  // //     next(err);
-  // //   }
-  // // }
-  // async getById(req, res, next) {
-  //   try {
-  //     let data = await commentService.getById(req.params.id, req.userInfo.email);
-  //     return res.send(data);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+  async getAll(req, res, next) {
+    try {
+      //only gets comments by user who is logged in
+      let data = await commentService.getAll(req.userInfo.email);
+      return res.send(data);
+    } catch (err) {
+      next(err);
+    }
+  }
+  async getById(req, res, next) {
+    try {
+      let data = await commentService.getById(
+        req.params.id,
+        req.userInfo.email
+      );
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
