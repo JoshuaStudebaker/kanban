@@ -19,6 +19,7 @@ export class ProfilesController extends BaseController {
       next(error);
     }
   }
+  // NOTE If you we want to be able to change profile name and picture, start here
   async edit(req, res, next) {
     try {
       req.body.creatorId = req.user.sub;
