@@ -9,9 +9,9 @@ export class BoardsController extends BaseController {
     super("api/boards");
     this.router
       .use(auth0provider.getAuthorizedUserInfo)
-      // NOTE We might need to add some drills (ie /:id/lists)
       .get("", this.getAll)
       .get("/:id", this.getById)
+      .get("/:id/lists", this.getListsByBoardId)
       .post("", this.create)
       .put("/:id", this.edit)
       .delete("/:id", this.delete);
@@ -21,6 +21,16 @@ export class BoardsController extends BaseController {
     try {
       //only gets boards by user who is logged in
       let data = await boardService.getAll(req.userInfo.email);
+      return res.send(data);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  async getListsByBoardId(req, res, next) {
+    try {
+      //only gets boards by user who is logged in
+      let data = await listsService.find({ boardId: req.params.id });
       return res.send(data);
     } catch (err) {
       next(err);
