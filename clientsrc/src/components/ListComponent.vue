@@ -1,8 +1,18 @@
 <template>
-  <div class="list-component col-md-4 my-3">
-    <div class="card card-style m-2" style="height: 25rem">
-      <div class="card-header" style="height: 5rem">
+  <div class="list-component col-12 my-3">
+    <div class="card card-style m-2">
+      <div class="card-header">
         <h5 class="card-title">{{ listProp.title }}</h5>
+        <form class="form-inline" @submit.prevent="editList(listProp.id)">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="New List Title..."
+            aria-describedby="helpId"
+            v-model="editedList.title"
+          />
+          <button type="submit" class="btn btn-warning">Edit List</button>
+        </form>
         <button class="btn btn-sm btn-danger" @click="deleteList(listProp.id)">Delete</button>
       </div>
       <div class="card-body shadow">
@@ -40,6 +50,7 @@ export default {
     return {
       newTask: {},
       editTask: {},
+      editedList: {}
     };
   },
   mounted() {
@@ -61,6 +72,10 @@ export default {
     deleteList(id) {
       this.$store.dispatch("deleteList", id);
     },
+    editList(id){
+      this.editedList.id = id
+      this.$store.dispatch("editList",this.editedList)
+    }
   },
 };
 </script>

@@ -139,7 +139,16 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
-
+    async editList({commit, state},editData){
+      try{
+        let res = await api.put("lists/"+editData.id,editData)
+        let index = state.lists.findIndex(l => l.id = res.data.id)
+        state.lists.splice(index,1,res.data)
+        commit("setLists", state.lists)
+      } catch(error){
+        console.error(error)
+      }
+    },
     //#endregion
 
     //#region -- LISTS --
