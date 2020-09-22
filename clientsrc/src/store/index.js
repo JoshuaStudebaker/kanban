@@ -58,6 +58,11 @@ export default new Vuex.Store({
         (t) => t.id != payload.id
       );
     },
+    deleteComment(state, payload) {
+      state.comments[payload.taskId] = state.comments[payload.taskId].filter(
+        (c) => c.id != payload.id
+      );
+    },
   },
   actions: {
     //#region -- AUTH STUFF --
@@ -94,10 +99,13 @@ export default new Vuex.Store({
     },
 
     async deleteTask({ commit }, payload) {
-      console.log("payload-id", payload.id);
-      console.log("payload-list", payload.listId);
       await api.delete("tasks/" + payload.id);
       commit("deleteTask", payload);
+    },
+
+    async deleteComment({ commit }, payload) {
+      await api.delete("comments/" + payload.id);
+      commit("deleteComment", payload);
     },
 
     addBoard({ commit, dispatch }, boardData) {
