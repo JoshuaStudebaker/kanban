@@ -11,6 +11,8 @@ export default new Vuex.Store({
     boards: [],
     activeBoard: {},
     lists: [],
+    tasks: {},
+    comments: {},
   },
   mutations: {
     setUser(state, user) {
@@ -25,6 +27,16 @@ export default new Vuex.Store({
 
     setLists(state, lists) {
       state.lists = lists;
+    },
+    setTasks(state, payload) {
+      console.log(payload);
+      // state.tasks[payload.id] = payload.tasks;
+      // NOTE Vue.set(object from state, your key, your value)
+      Vue.set(state.tasks, payload.id, payload.tasks);
+    },
+    setComments(state, payload) {
+      console.log(payload);
+      Vue.set(state.comments, payload.id, payload.comments);
     },
   },
   actions: {
@@ -78,7 +90,23 @@ export default new Vuex.Store({
     //#endregion
 
     //#region -- LISTS --
+    async getTasksByListId({ commit }, id) {
+      try {
+        let res = await api.get("lists/" + id + "/tasks");
+        commit("setTasks", { tasks: res.data, id });
+      } catch (error) {
+        console.error("cannot get tasks");
+      }
+    },
 
+    async getCommentsByTaskId({ commit }, id) {
+      try {
+        let res = await api.get("tasks/" + id + "/comments");
+        commit("setComments", { comments: res.data, id });
+      } catch (error) {
+        console.error("cannot get comments");
+      }
+    },
     //#endregion
   },
 });

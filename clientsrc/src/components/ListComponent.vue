@@ -5,21 +5,34 @@
         <h5 class="card-title">{{ listProp.title }}</h5>
       </div>
       <div class="card-body shadow">
-        <p class="card-text card-body-style">Tasks...</p>
+        <ul class="card-text card-body-style">
+          <task-component v-for="iTask in tasks" :key="iTask.id" :taskProp="iTask" />
+        </ul>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import taskComponent from "./TaskComponent";
 export default {
   name: "list-component",
   props: ["listProp"],
+  components: {
+    taskComponent,
+  },
   data() {
     return {};
   },
-  computed: {},
-  methods: {},
+  mounted() {
+    console.log("does listProp work?", this.listProp.id);
+    this.$store.dispatch("getTasksByListId", this.listProp.id);
+  },
+  computed: {
+    tasks() {
+      return this.$store.state.tasks[this.listProp.id];
+    },
+  },
 };
 </script>
 
