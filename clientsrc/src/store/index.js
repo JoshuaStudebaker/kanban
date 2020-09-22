@@ -54,7 +54,7 @@ export default new Vuex.Store({
     },
 
     deleteTask(state, payload) {
-      state.tasks = state.tasks[payload.listId].filter(
+      state.tasks[payload.listId] = state.tasks[payload.listId].filter(
         (t) => t.id != payload.id
       );
     },
