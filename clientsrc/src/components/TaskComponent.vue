@@ -13,6 +13,7 @@
       </div>
       <button type="submit" class="btn btn-success mx-3">Add Comment</button>
     </form>
+    <button class="btn btn-sm btn-danger" @click="deleteTask(taskProp.id)">Delete</button>
     <ul>
       <comment-component v-for="iComment in comments" :key="iComment.id" :commentProp="iComment" />
     </ul>
@@ -47,6 +48,13 @@ export default {
         taskId: this.taskProp.id,
       };
       this.$store.dispatch("createComment", payload);
+    },
+    deleteTask(id) {
+      let payload = {
+        id: id,
+        listId: this.taskProp.listId,
+      };
+      this.$store.dispatch("deleteTask", payload);
     },
   },
 };

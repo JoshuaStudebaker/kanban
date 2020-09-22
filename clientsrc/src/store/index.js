@@ -52,6 +52,12 @@ export default new Vuex.Store({
     deleteList(state, id) {
       state.lists = state.lists.filter((l) => l.id != id);
     },
+
+    deleteTask(state, payload) {
+      state.tasks = state.tasks[payload.listId].filter(
+        (t) => t.id != payload.id
+      );
+    },
   },
   actions: {
     //#region -- AUTH STUFF --
@@ -85,6 +91,13 @@ export default new Vuex.Store({
     async deleteList({ commit }, id) {
       await api.delete("lists/" + id);
       commit("deleteList", id);
+    },
+
+    async deleteTask({ commit }, payload) {
+      console.log("payload-id", payload.id);
+      console.log("payload-list", payload.listId);
+      await api.delete("tasks/" + payload.id);
+      commit("deleteTask", payload);
     },
 
     addBoard({ commit, dispatch }, boardData) {
