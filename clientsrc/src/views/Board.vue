@@ -15,6 +15,23 @@
     <h1 v-if="board.title">{{board.title}}</h1>
     <h1 v-else>Loading...</h1>
     <h4>{{board.description}}</h4>
+    <form class="form-inline" @submit.prevent="editActiveBoard">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="New Board Title..."
+            aria-describedby="helpId"
+            v-model="editBoard.title"
+          />
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Board Description..."
+            aria-describedby="helpId"
+            v-model="editBoard.description"
+          />
+          <button type="submit" class="btn btn-warning">Edit Board</button>
+        </form>
     <list-component v-for="iList in lists" :key="iList.id" :listProp="iList" />
   </div>
 </template>
@@ -29,6 +46,7 @@ export default {
   data() {
     return {
       newList: {},
+      editBoard: {},
       editList: {},
     };
   },
@@ -55,6 +73,9 @@ export default {
       };
       this.$store.dispatch("createList", payload);
     },
+    editActiveBoard(){
+      this.$store.dispatch("editBoard",this.editBoard)
+    }
   },
 };
 </script>

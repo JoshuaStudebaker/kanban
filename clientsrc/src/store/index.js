@@ -131,6 +131,14 @@ export default new Vuex.Store({
         console.error("cannot get lists");
       }
     },
+    async editBoard({commit, state},editData){
+      try {
+        let res = await api.put("boards/"+state.activeBoard.id, editData)
+        commit("setActiveBoard", res.data)
+      } catch (error) {
+        console.error(error)
+      }
+    },
 
     //#endregion
 
