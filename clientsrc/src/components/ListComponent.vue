@@ -96,7 +96,6 @@ export default {
   text-overflow: ellipsis;
   word-wrap: break-word;
   overflow: hidden;
-  max-height: 15rem;
   line-height: 1.5rem;
 }
 </style>

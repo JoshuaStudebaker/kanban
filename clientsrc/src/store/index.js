@@ -142,10 +142,22 @@ export default new Vuex.Store({
     async editList({commit, state},editData){
       try{
         let res = await api.put("lists/"+editData.id,editData)
-        let index = state.lists.findIndex(l => l.id = res.data.id)
+        let index = state.lists.findIndex(l => l.id == res.data.id)
         state.lists.splice(index,1,res.data)
         commit("setLists", state.lists)
       } catch(error){
+        console.error(error)
+      }
+    },
+    async editTask({commit, state},editData){
+      try {
+        let res = await api.put("tasks/"+editData.id,editData)
+        debugger
+        let index = state.tasks[res.data.listId].findIndex(t => t.id == res.data.id)
+        console.log(index)
+        state.tasks[res.data.listId].splice(index,1,res.data)
+        commit("setTasks", state.tasks)
+      } catch (error) {
         console.error(error)
       }
     },

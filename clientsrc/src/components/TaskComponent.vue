@@ -1,5 +1,15 @@
 <template>
-  <li>
+  <li class="border">
+    <form class="form-inline" @submit.prevent="editTask(taskProp.id)">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="New Task Title..."
+            aria-describedby="helpId"
+            v-model="editedTask.title"
+          />
+          <button type="submit" class="btn btn-warning">Edit Task</button>
+        </form>
     {{taskProp.title}}:
     <form class="form-inline" @submit.prevent="createComment">
       <div class="form-group">
@@ -31,6 +41,7 @@ export default {
   data() {
     return {
       newComment: {},
+      editedTask: {}
     };
   },
   mounted() {
@@ -56,6 +67,10 @@ export default {
       };
       this.$store.dispatch("deleteTask", payload);
     },
+    editTask(id){
+      this.editedTask.id = id
+      this.$store.dispatch("editTask",this.editedTask)
+    }
   },
 };
 </script>

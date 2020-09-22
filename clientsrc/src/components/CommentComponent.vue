@@ -1,5 +1,5 @@
 <template>
-  <li>
+  <li class="border">
     {{commentProp.title}}
     <button class="btn btn-sm btn-danger" @click="deleteComment(commentProp.id)">Delete</button>
   </li>
