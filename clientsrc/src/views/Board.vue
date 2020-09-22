@@ -49,8 +49,6 @@ export default {
 
   methods: {
     createList() {
-      console.log(this.newList);
-      console.log(this.board.id);
       let payload = {
         title: this.newList.title,
         boardId: this.board.id,

@@ -38,6 +38,14 @@ export default new Vuex.Store({
       console.log(payload);
       Vue.set(state.comments, payload.id, payload.comments);
     },
+
+    addTask(state, payload) {
+      state.tasks[payload.listId].push(payload.task);
+    },
+
+    addComment(state, payload) {
+      state.comments[payload.taskId].push(payload.comment);
+    },
   },
   actions: {
     //#region -- AUTH STUFF --
@@ -110,8 +118,19 @@ export default new Vuex.Store({
 
     async createList({ commit, state }, newList) {
       let res = await api.post("lists", newList);
-      console.log("new-list-res", res);
       commit("setLists", [...state.lists, res.data]);
+    },
+
+    async createTask({ dispatch, commit }, newTask) {
+      let res = await api.post("tasks", newTask);
+      commit("addTask", { listId: res.data.listId, task: res.data });
+      // NOTE This worked too, but it requires an extra call to the database
+      // dispatch("getTasksByListId", res.data.listId);
+    },
+
+    async createComment({ commit }, newComment) {
+      let res = await api.post("comments", newComment);
+      commit("addComment", { taskId: res.data.taskId, comment: res.data });
     },
     //#endregion
   },

@@ -1,6 +1,18 @@
 <template>
   <li>
-    {{taskProp.title}}
+    {{taskProp.title}}:
+    <form class="form-inline" @submit.prevent="createComment">
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control"
+          v-model="newComment.title"
+          placeholder="Enter here..."
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-success mx-3">Add Comment</button>
+    </form>
     <ul>
       <comment-component v-for="iComment in comments" :key="iComment.id" :commentProp="iComment" />
     </ul>
@@ -16,7 +28,9 @@ export default {
     commentComponent,
   },
   data() {
-    return {};
+    return {
+      newComment: {},
+    };
   },
   mounted() {
     this.$store.dispatch("getCommentsByTaskId", this.taskProp.id);
@@ -24,6 +38,15 @@ export default {
   computed: {
     comments() {
       return this.$store.state.comments[this.taskProp.id];
+    },
+  },
+  methods: {
+    createComment() {
+      let payload = {
+        title: this.newComment.title,
+        taskId: this.taskProp.id,
+      };
+      this.$store.dispatch("createComment", payload);
     },
   },
 };

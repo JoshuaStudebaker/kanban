@@ -8,6 +8,20 @@
         <ul class="card-text card-body-style">
           <task-component v-for="iTask in tasks" :key="iTask.id" :taskProp="iTask" />
         </ul>
+        <div class="card-footer">
+          <form class="form-inline" @submit.prevent="createTask">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                v-model="newTask.title"
+                placeholder="Enter here..."
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-success mx-3">Add Task</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -22,15 +36,26 @@ export default {
     taskComponent,
   },
   data() {
-    return {};
+    return {
+      newTask: {},
+      editTask: {},
+    };
   },
   mounted() {
-    console.log("does listProp work?", this.listProp.id);
     this.$store.dispatch("getTasksByListId", this.listProp.id);
   },
   computed: {
     tasks() {
       return this.$store.state.tasks[this.listProp.id];
+    },
+  },
+  methods: {
+    createTask() {
+      let payload = {
+        title: this.newTask.title,
+        listId: this.listProp.id,
+      };
+      this.$store.dispatch("createTask", payload);
     },
   },
 };
