@@ -3,6 +3,7 @@
     <div class="card card-style m-2" style="height: 25rem">
       <div class="card-header" style="height: 5rem">
         <h5 class="card-title">{{ listProp.title }}</h5>
+        <button class="btn btn-sm btn-danger" @click="deleteList(listProp.id)">Delete</button>
       </div>
       <div class="card-body shadow">
         <ul class="card-text card-body-style">
@@ -56,6 +57,9 @@ export default {
         listId: this.listProp.id,
       };
       this.$store.dispatch("createTask", payload);
+    },
+    deleteList(id) {
+      this.$store.dispatch("deleteList", id);
     },
   },
 };

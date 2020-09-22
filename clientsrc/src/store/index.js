@@ -45,8 +45,12 @@ export default new Vuex.Store({
       state.comments[payload.taskId].push(payload.comment);
     },
 
-    removeBoard(state, id) {
+    deleteBoard(state, id) {
       state.boards = state.boards.filter((b) => b.id != id);
+    },
+
+    deleteList(state, id) {
+      state.lists = state.lists.filter((l) => l.id != id);
     },
   },
   actions: {
@@ -75,7 +79,12 @@ export default new Vuex.Store({
     },
     async deleteBoard({ commit }, id) {
       await api.delete("boards/" + id);
-      commit("removeBoard", id);
+      commit("deleteBoard", id);
+    },
+
+    async deleteList({ commit }, id) {
+      await api.delete("lists/" + id);
+      commit("deleteList", id);
     },
 
     addBoard({ commit, dispatch }, boardData) {
