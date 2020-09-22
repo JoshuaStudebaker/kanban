@@ -107,6 +107,12 @@ export default new Vuex.Store({
         console.error("cannot get comments");
       }
     },
+
+    async createList({ commit, state }, newList) {
+      let res = await api.post("lists", newList);
+      console.log("new-list-res", res);
+      commit("setLists", [...state.lists, res.data]);
+    },
     //#endregion
   },
 });
