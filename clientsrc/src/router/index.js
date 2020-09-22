@@ -20,11 +20,11 @@ export default new Router({
       component: Boards,
       beforeEnter: authGuard,
     },
-    // REVIEW authGuard needed below, or is it good since boards already has it?
     {
       path: "/boards/:boardId",
       name: "board",
       component: Board,
+      beforeEnter: authGuard,
     },
     {
       path: "*",
