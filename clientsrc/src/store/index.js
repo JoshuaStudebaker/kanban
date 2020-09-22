@@ -29,13 +29,11 @@ export default new Vuex.Store({
       state.lists = lists;
     },
     setTasks(state, payload) {
-      console.log(payload);
       // state.tasks[payload.id] = payload.tasks;
       // NOTE Vue.set(object from state, your key, your value)
       Vue.set(state.tasks, payload.id, payload.tasks);
     },
     setComments(state, payload) {
-      console.log(payload);
       Vue.set(state.comments, payload.id, payload.comments);
     },
 
@@ -45,6 +43,10 @@ export default new Vuex.Store({
 
     addComment(state, payload) {
       state.comments[payload.taskId].push(payload.comment);
+    },
+
+    removeBoard(state, id) {
+      state.boards = state.boards.filter((b) => b.id != id);
     },
   },
   actions: {
@@ -71,6 +73,11 @@ export default new Vuex.Store({
         commit("setBoards", res.data);
       });
     },
+    async deleteBoard({ commit }, id) {
+      await api.delete("boards/" + id);
+      commit("removeBoard", id);
+    },
+
     addBoard({ commit, dispatch }, boardData) {
       api.post("boards", boardData).then((serverBoard) => {
         dispatch("getBoards");
