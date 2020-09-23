@@ -21,32 +21,4 @@ Comment.virtual("creator", {
   justOne: true,
 });
 
-//CASCADE ON DELETE
-// Comment.pre("deleteMany", function (next) {
-//   //lets find all the Comments and remove them
-//   Promise.all([
-//     dbContext.Comments.deleteMany({
-//       // @ts-ignore
-//       boardId: this._conditions.boardId,
-//       // @ts-ignore
-//       listId: this._conditions.listId,
-//       // @ts-ignore
-//       taskId: this._conditions.taskId,
-//     }),
-//   ])
-//     .then(() => next())
-//     .catch((err) => next(err));
-// });
-
-// //CASCADE ON DELETE
-// Comment.pre("findOneAndRemove", function (next) {
-//   //lets find all the Comments and remove them
-//   Promise.all([
-//     // REVIEW check if ({CommentId or ListId or BoardId})
-//     // dbContext.Comment.deleteMany({ CommentId: this._conditions._id })
-//   ])
-//     .then(() => next())
-//     .catch((err) => next(err));
-// });
-
 export default Comment;

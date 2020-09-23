@@ -23,7 +23,6 @@ List.virtual("creator", {
 List.pre("deleteMany", function (next) {
   //lets find all the tasks and remove them
   Promise.all([
-    //something like...
     // @ts-ignore
     dbContext.Tasks.deleteMany({ boardId: this._conditions.boardId }),
   ])

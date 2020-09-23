@@ -22,35 +22,23 @@ Task.virtual("creator", {
 
 //CASCADE ON DELETE
 Task.pre("deleteMany", function (next) {
-  //lets find all the Comments and remove them by TaskId
-  let listOrBoardId = "";
-
+  // @ts-ignore
   if (this._conditions.listId) {
     Promise.all([
-      //something like...
       // @ts-ignore
       dbContext.Comments.deleteMany({
         // @ts-ignore
-        // // // @ts-ignore
-
         listId: this._conditions.listId,
-        // boardId: this._conditions.boardId,
-        // taskId: this._conditions._id,
       }),
     ])
       .then(() => next())
       .catch((err) => next(err));
   } else
     Promise.all([
-      //something like...
       // @ts-ignore
       dbContext.Comments.deleteMany({
         // @ts-ignore
-        // // // @ts-ignore
-
-        // listId: this._conditions.listId,
         boardId: this._conditions.boardId,
-        // taskId: this._conditions._id,
       }),
     ])
       .then(() => next())
