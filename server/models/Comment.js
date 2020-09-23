@@ -7,6 +7,7 @@ const Comment = new Schema(
     title: { type: String, required: true },
     creatorEmail: { type: String, required: true },
     taskId: { type: ObjectId, ref: "Task", required: true },
+    boardId: { type: ObjectId, ref: "Board", required: true },
   },
   { timestamps: true, toJSON: { virtuals: true } }
 );

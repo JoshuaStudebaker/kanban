@@ -68,6 +68,7 @@ export default {
       let payload = {
         title: this.newComment.title,
         taskId: this.taskProp.id,
+        boardId: this.taskProp.boardId,
       };
       this.$store.dispatch("createComment", payload);
     },

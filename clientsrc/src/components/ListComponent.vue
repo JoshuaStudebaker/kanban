@@ -50,7 +50,7 @@ export default {
     return {
       newTask: {},
       editTask: {},
-      editedList: {}
+      editedList: {},
     };
   },
   mounted() {
@@ -66,16 +66,17 @@ export default {
       let payload = {
         title: this.newTask.title,
         listId: this.listProp.id,
+        boardId: this.listProp.boardId,
       };
       this.$store.dispatch("createTask", payload);
     },
     deleteList(id) {
       this.$store.dispatch("deleteList", id);
     },
-    editList(id){
-      this.editedList.id = id
-      this.$store.dispatch("editList",this.editedList)
-    }
+    editList(id) {
+      this.editedList.id = id;
+      this.$store.dispatch("editList", this.editedList);
+    },
   },
 };
 </script>
