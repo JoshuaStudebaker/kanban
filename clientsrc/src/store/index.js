@@ -150,6 +150,7 @@ export default new Vuex.Store({
       }
     },
     async editTask({ commit, state, dispatch }, editData) {
+      console.log(editData);
       try {
         let res = await api.put("tasks/" + editData.id, editData);
         let index = state.tasks[res.data.listId].findIndex(
@@ -158,6 +159,7 @@ export default new Vuex.Store({
         state.tasks[res.data.listId].splice(index, 1, res.data);
         commit("setTasks", state.tasks);
         dispatch("getTasksByListId", res.data.listId);
+        dispatch("getTasksByListId", editData.oldId);
       } catch (error) {
         console.error(error);
       }

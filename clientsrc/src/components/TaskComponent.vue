@@ -82,8 +82,8 @@ export default {
     },
     editTask(id) {
       this.editedTask.id = id;
+      this.editedTask.oldId = this.taskProp.listId;
       this.$store.dispatch("editTask", this.editedTask);
-      this.$store.dispatch("getTasksByListId", this.taskProp.listId);
     },
   },
 };

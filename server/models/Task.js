@@ -25,6 +25,7 @@ Task.pre("deleteMany", function (next) {
   //lets find all the Comments and remove them by TaskId
   let listOrBoardId = "";
 
+  // @ts-ignore
   if (this._conditions.listId) {
     Promise.all([
       //something like...
