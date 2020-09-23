@@ -69,6 +69,7 @@ export default {
         title: this.newComment.title,
         taskId: this.taskProp.id,
         boardId: this.taskProp.boardId,
+        listId: this.taskProp.listId,
       };
       this.$store.dispatch("createComment", payload);
     },

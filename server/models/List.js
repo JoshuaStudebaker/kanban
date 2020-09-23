@@ -19,7 +19,7 @@ List.virtual("creator", {
   justOne: true,
 });
 
-//CASCADE ON DELETE
+// CASCADE ON DELETE
 List.pre("deleteMany", function (next) {
   //lets find all the tasks and remove them
   Promise.all([
