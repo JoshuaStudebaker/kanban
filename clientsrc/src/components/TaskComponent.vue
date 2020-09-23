@@ -1,15 +1,21 @@
 <template>
   <li class="border">
     <form class="form-inline" @submit.prevent="editTask(taskProp.id)">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="New Task Title..."
-            aria-describedby="helpId"
-            v-model="editedTask.title"
-          />
-          <button type="submit" class="btn btn-warning">Edit Task</button>
-        </form>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="New Task Title..."
+        aria-describedby="helpId"
+        v-model="editedTask.title"
+      />
+      <div class="form-group">
+        <label for="exampleFormControlSelect2">Example multiple select</label>
+        <select class="form-control" id="exampleFormControlSelect2" v-model="editedTask.listId">
+          <option v-for="iList in lists" :key="iList.id" :value="iList.id">{{iList.title}}</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-warning">Edit Task</button>
+    </form>
     {{taskProp.title}}:
     <form class="form-inline" @submit.prevent="createComment">
       <div class="form-group">
@@ -41,15 +47,20 @@ export default {
   data() {
     return {
       newComment: {},
-      editedTask: {}
+      editedTask: {},
     };
   },
   mounted() {
     this.$store.dispatch("getCommentsByTaskId", this.taskProp.id);
   },
+
   computed: {
     comments() {
       return this.$store.state.comments[this.taskProp.id];
+    },
+    lists() {
+      console.log("lists");
+      return this.$store.state.lists;
     },
   },
   methods: {
@@ -67,10 +78,11 @@ export default {
       };
       this.$store.dispatch("deleteTask", payload);
     },
-    editTask(id){
-      this.editedTask.id = id
-      this.$store.dispatch("editTask",this.editedTask)
-    }
+    editTask(id) {
+      this.editedTask.id = id;
+      this.$store.dispatch("editTask", this.editedTask);
+      this.$store.dispatch("getTasksByListId", this.taskProp.listId);
+    },
   },
 };
 </script>

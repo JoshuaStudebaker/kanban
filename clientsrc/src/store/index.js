@@ -131,44 +131,47 @@ export default new Vuex.Store({
         console.error("cannot get lists");
       }
     },
-    async editBoard({commit, state},editData){
+    async editBoard({ commit, state }, editData) {
       try {
-        let res = await api.put("boards/"+state.activeBoard.id, editData)
-        commit("setActiveBoard", res.data)
+        let res = await api.put("boards/" + state.activeBoard.id, editData);
+        commit("setActiveBoard", res.data);
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     },
-    async editList({commit, state},editData){
-      try{
-        let res = await api.put("lists/"+editData.id,editData)
-        let index = state.lists.findIndex(l => l.id == res.data.id)
-        state.lists.splice(index,1,res.data)
-        commit("setLists", state.lists)
-      } catch(error){
-        console.error(error)
+    async editList({ commit, state }, editData) {
+      try {
+        let res = await api.put("lists/" + editData.id, editData);
+        let index = state.lists.findIndex((l) => l.id == res.data.id);
+        state.lists.splice(index, 1, res.data);
+        commit("setLists", state.lists);
+      } catch (error) {
+        console.error(error);
       }
     },
-    async editTask({commit, state},editData){
+    async editTask({ commit, state, dispatch }, editData) {
       try {
-        let res = await api.put("tasks/"+editData.id,editData)
-        debugger
-        let index = state.tasks[res.data.listId].findIndex(t => t.id == res.data.id)
-        state.tasks[res.data.listId].splice(index,1,res.data)
-        commit("setTasks", state.tasks)
+        let res = await api.put("tasks/" + editData.id, editData);
+        let index = state.tasks[res.data.listId].findIndex(
+          (t) => t.id == res.data.id
+        );
+        state.tasks[res.data.listId].splice(index, 1, res.data);
+        commit("setTasks", state.tasks);
+        dispatch("getTasksByListId", res.data.listId);
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     },
-    async editComment({commit, state},editData){
+    async editComment({ commit, state }, editData) {
       try {
-        let res = await api.put("comments/"+editData.id,editData)
-        debugger
-        let index = state.comments[res.data.taskId].findIndex(c => c.id == res.data.id)
-        state.comments[res.data.taskId].splice(index,1,res.data)
-        commit("setComments", state.comments)
+        let res = await api.put("comments/" + editData.id, editData);
+        let index = state.comments[res.data.taskId].findIndex(
+          (c) => c.id == res.data.id
+        );
+        state.comments[res.data.taskId].splice(index, 1, res.data);
+        commit("setComments", state.comments);
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     },
     //#endregion
