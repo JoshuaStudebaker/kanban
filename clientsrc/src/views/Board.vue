@@ -1,24 +1,12 @@
 <template>
-  <div class="board">
-    <form class="form-inline" @submit.prevent="createList">
-      <div class="form-group">
-        <input
-          type="text"
-          class="form-control"
-          v-model="newList.title"
-          placeholder="Enter here..."
-          required
-        />
-      </div>
-      <button type="submit" class="btn btn-success mx-3">Add List</button>
-    </form>
+  <div class="board container-fluid">
     <h1 v-if="board.title">{{board.title}}</h1>
     <h1 v-else>Loading...</h1>
     <h4>{{board.description}}</h4>
-    <form class="form-inline" @submit.prevent="editActiveBoard">
+    <form class="form-inline mx-3" @submit.prevent="editActiveBoard">
           <input
             type="text"
-            class="form-control"
+            class="form-control mx-3"
             placeholder="New Board Title..."
             aria-describedby="helpId"
             v-model="editBoard.title"
@@ -26,12 +14,24 @@
           <input
             type="text"
             class="form-control"
-            placeholder="Board Description..."
+            placeholder="New Board Description..."
             aria-describedby="helpId"
             v-model="editBoard.description"
           />
-          <button type="submit" class="btn btn-warning">Edit Board</button>
+          <button type="submit" class="btn btn-warning mx-3">Edit Board</button>
         </form>
+    <form class="form-inline mt-3 mx-3" @submit.prevent="createList">
+      <div class="form-inline mx-3">
+        <input
+          type="text"
+          class="form-control"
+          v-model="newList.title"
+          placeholder="New List..."
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-success">Add List</button>
+    </form>
     <list-component v-for="iList in lists" :key="iList.id" :listProp="iList" />
   </div>
 </template>

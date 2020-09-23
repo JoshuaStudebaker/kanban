@@ -1,23 +1,24 @@
 <template>
-  <li class="border">
-    <form class="form-inline" @submit.prevent="editTask(taskProp.id)">
+  <div class="border col-4 card">
+    <div class="card-header">
+    <h6 class='mt-2'>{{taskProp.title}} <button class="btn btn-sm btn-danger" @click="deleteTask(taskProp.id)">Delete</button></h6>
+    <form class="form-inline my-2" @submit.prevent="editTask(taskProp.id)">
       <input
         type="text"
-        class="form-control"
+        class="form-control mr-2"
         placeholder="New Task Title..."
         aria-describedby="helpId"
         v-model="editedTask.title"
       />
       <div class="form-group">
-        <label for="exampleFormControlSelect2">Example multiple select</label>
-        <select class="form-control" id="exampleFormControlSelect2" v-model="editedTask.listId">
+        <label for="exampleFormControlSelect2">Choose a list:</label>
+        <select class="form-control mx-2" id="exampleFormControlSelect2" v-model="editedTask.listId">
           <option v-for="iList in lists" :key="iList.id" :value="iList.id">{{iList.title}}</option>
         </select>
       </div>
       <button type="submit" class="btn btn-warning">Edit Task</button>
     </form>
-    {{taskProp.title}}:
-    <form class="form-inline" @submit.prevent="createComment">
+    <form class="form-inline my-2" @submit.prevent="createComment">
       <div class="form-group">
         <input
           type="text"
@@ -29,11 +30,11 @@
       </div>
       <button type="submit" class="btn btn-success mx-3">Add Comment</button>
     </form>
-    <button class="btn btn-sm btn-danger" @click="deleteTask(taskProp.id)">Delete</button>
-    <ul>
+    </div>
+    <div>
       <comment-component v-for="iComment in comments" :key="iComment.id" :commentProp="iComment" />
-    </ul>
-  </li>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -90,4 +91,7 @@ export default {
 </script>
 
 <style scoped>
+.card-header{
+  color: red;
+}
 </style>

@@ -1,5 +1,9 @@
 <template>
-  <li class="border">
+  <div class="border card my-2">
+    <h6>
+    {{commentProp.title}}
+    <button class="btn btn-sm btn-danger" @click="deleteComment(commentProp.id)">Delete</button>
+    </h6>
     <form class="form-inline" @submit.prevent="editComment(commentProp.id)">
           <input
             type="text"
@@ -8,11 +12,9 @@
             aria-describedby="helpId"
             v-model="editedComment.title"
           />
-          <button type="submit" class="btn btn-warning">Edit Comment</button>
+          <button type="submit" class="btn btn-warning mx-2">Edit Comment</button>
         </form>
-    {{commentProp.title}}
-    <button class="btn btn-sm btn-danger" @click="deleteComment(commentProp.id)">Delete</button>
-  </li>
+  </div>
 </template>
 
 <script>
@@ -39,4 +41,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>
