@@ -25,7 +25,13 @@ Task.pre("deleteMany", function (next) {
   //lets find all the Comments and remove them by TaskId
   Promise.all([
     //something like...
-    dbContext.Comments.deleteMany({ taskId: this._conditions._id }),
+    // @ts-ignore
+    dbContext.Comments.deleteMany({
+      // @ts-ignore
+      boardId: this._conditions.boardId,
+      // @ts-ignore
+      listId: this._conditions.listId,
+    }),
   ])
     .then(() => next())
     .catch((err) => next(err));
@@ -36,6 +42,7 @@ Task.pre("findOneAndRemove", function (next) {
   //lets find all the tasks and remove them
   Promise.all([
     // REVIEW check if ({TaskId or ListId or BoardId})
+    // @ts-ignore
     dbContext.Comments.deleteMany({ taskId: this._conditions._id }),
   ])
     .then(() => next())

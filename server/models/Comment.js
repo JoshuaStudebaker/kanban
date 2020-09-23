@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { dbContext } from "../db/DbContext";
 let Schema = mongoose.Schema;
 let ObjectId = Schema.Types.ObjectId;
 
@@ -20,15 +21,21 @@ Comment.virtual("creator", {
 });
 
 //CASCADE ON DELETE
-// Comment.pre("deleteMany", function (next) {
-//   //lets find all the Comments and remove them
-//   Promise.all([
-//     //something like...
-//     //dbContext.Comment.deleteMany({ CommentId: this._conditions_id }),
-//   ])
-//     .then(() => next())
-//     .catch((err) => next(err));
-// });
+Comment.pre("deleteMany", function (next) {
+  //lets find all the Comments and remove them
+  Promise.all([
+    dbContext.Comments.deleteMany({
+      // @ts-ignore
+      boardId: this._conditions.boardId,
+      // @ts-ignore
+      listId: this._conditions.listId,
+      // @ts-ignore
+      taskId: this._conditions.taskId,
+    }),
+  ])
+    .then(() => next())
+    .catch((err) => next(err));
+});
 
 // //CASCADE ON DELETE
 // Comment.pre("findOneAndRemove", function (next) {
