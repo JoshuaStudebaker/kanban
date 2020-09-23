@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import router from "../router/index";
 import { api } from "./AxiosService";
+import SweetAlert from "../services/SweetAlert";
 
 Vue.use(Vuex);
 
@@ -89,8 +90,10 @@ export default new Vuex.Store({
       });
     },
     async deleteBoard({ commit }, id) {
-      await api.delete("boards/" + id);
-      commit("deleteBoard", id);
+      if (await SweetAlert.sweetDelete()) {
+        await api.delete("boards/" + id);
+        commit("deleteBoard", id);
+      }
     },
 
     async deleteList({ commit }, id) {
