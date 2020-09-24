@@ -2,7 +2,7 @@
   <div class="border card my-2">
     <h6 class='mt-2'>
     {{commentProp.title}}
-    <button class="btn btn-sm btn-danger" @click="deleteComment(commentProp.id)">Delete</button>
+    <i class="fa fa-trash ml-1 text-danger" @click="deleteComment(commentProp.id)"></i>
     </h6>
     <form class="form-inline my-2" @submit.prevent="editComment(commentProp.id)">
           <input
@@ -40,6 +40,9 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+.fa:hover{
+  cursor: pointer;
+}
 
 </style>

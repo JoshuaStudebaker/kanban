@@ -1,7 +1,7 @@
 <template>
   <div class="border col-12 card">
     <div class="card-body">
-    <h6 class='mt-2'>{{taskProp.title}} <button class="btn btn-sm btn-danger" @click="deleteTask(taskProp.id)">Delete</button></h6>
+    <h6 class='mt-2'>{{taskProp.title}} <i class="fa fa-trash ml-1 text-danger" @click="deleteTask(taskProp.id)"></i></h6>
     <form class="form-inline my-2" @submit.prevent="editTask(taskProp.id)">
       <input
         type="text"
@@ -90,6 +90,10 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+
+.fa:hover{
+  cursor: pointer;
+}
 
 </style>

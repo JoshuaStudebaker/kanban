@@ -2,7 +2,8 @@
   <div class="list-component col-4 my-3">
     <div class="card card-style m-2">
       <div class="card-header">
-        <h5 class="card-title">{{ listProp.title }}<button class="btn btn-sm btn-danger mx-1" @click="deleteList(listProp.id)">Delete</button></h5>
+        <h5 class="card-title">{{ listProp.title }}<i class="fa fa-trash ml-1 text-danger" @click="deleteList(listProp.id)"></i></h5>
+        
         <form class="form-inline" @submit.prevent="editList(listProp.id)">
           <input
             type="text"
@@ -95,4 +96,9 @@ export default {
   overflow: hidden;
   line-height: 1.5rem;
 }
+
+.fa:hover{
+  cursor: pointer;
+}
+
 </style>
