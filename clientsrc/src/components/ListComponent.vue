@@ -1,10 +1,10 @@
 <template>
-  <div class="list-component col-4 my-3">
+  <div class="list-component col-12 col-lg-4 my-3">
     <div class="card card-style m-2">
       <div class="card-header">
         <h5 class="card-title">{{ listProp.title }}<i class="fa fa-trash ml-1 text-danger" @click="deleteList(listProp.id)"></i></h5>
-        
-        <form class="form-inline" @submit.prevent="editList(listProp.id)">
+        <i class="fa fa-pencil-alt text-info mb-1" aria-hidden="true" @click="editToggle = !editToggle"></i>
+        <form v-if="editToggle" class="form-inline" @submit.prevent="editList(listProp.id)">
           <input
             type="text"
             class="form-control mx-3"
@@ -48,6 +48,7 @@ export default {
       newTask: {},
       editTask: {},
       editedList: {},
+      editToggle: false,
     };
   },
   mounted() {
@@ -73,6 +74,7 @@ export default {
     editList(id) {
       this.editedList.id = id;
       this.$store.dispatch("editList", this.editedList);
+      this.editToggle = false;
     },
   },
 };

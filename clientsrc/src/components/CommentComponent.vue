@@ -4,7 +4,8 @@
     {{commentProp.title}}
     <i class="fa fa-trash ml-1 text-danger" @click="deleteComment(commentProp.id)"></i>
     </h6>
-    <form class="form-inline my-2" @submit.prevent="editComment(commentProp.id)">
+    <i class="fa fa-pencil-alt text-info mb-2" aria-hidden="true" @click="editToggle = !editToggle"></i>
+    <form v-if="editToggle" class="form-inline m-2" @submit.prevent="editComment(commentProp.id)">
           <input
             type="text"
             class="form-control"
@@ -22,7 +23,10 @@ export default {
   name: "comment-component",
   props: ["commentProp"],
   data(){
-    return{ editedComment: {} }
+    return{ 
+      editedComment: {},
+      editToggle: false,
+     }
   },
   methods: {
     deleteComment(id) {
@@ -35,6 +39,7 @@ export default {
     editComment(id){
       this.editedComment.id = id
       this.$store.dispatch("editComment", this.editedComment)
+      this.editToggle = false
     }
   },
 };

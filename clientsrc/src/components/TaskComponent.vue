@@ -1,8 +1,9 @@
 <template>
   <div class="border col-12 card">
     <div class="card-body">
-    <h6 class='mt-2'>{{taskProp.title}} <i class="fa fa-trash ml-1 text-danger" @click="deleteTask(taskProp.id)"></i></h6>
-    <form class="form-inline my-2" @submit.prevent="editTask(taskProp.id)">
+    <h5 class='mt-2'>{{taskProp.title}} <i class="fa fa-trash ml-1 text-danger" @click="deleteTask(taskProp.id)"></i></h5>
+    <i class="fa fa-pencil-alt text-info" aria-hidden="true" @click="editToggle = !editToggle"></i>
+    <form v-if="editToggle" class="form-inline my-2" @submit.prevent="editTask(taskProp.id)">
       <input
         type="text"
         class="form-control mr-2"
@@ -31,7 +32,8 @@
       <button type="submit" class="btn btn-success mx-3">Add Comment</button>
     </form>
     </div>
-    <div>
+    <i class="far fa-comments text-info mb-2" aria-hidden="true" @click="commentToggle = !commentToggle"> View Comments</i>
+    <div v-if="commentToggle">
       <comment-component v-for="iComment in comments" :key="iComment.id" :commentProp="iComment" />
     </div>
   </div>
@@ -49,6 +51,8 @@ export default {
     return {
       newComment: {},
       editedTask: {},
+      editToggle: false,
+      commentToggle: false,
     };
   },
   mounted() {
@@ -85,6 +89,7 @@ export default {
       this.editedTask.id = id;
       this.editedTask.oldId = this.taskProp.listId;
       this.$store.dispatch("editTask", this.editedTask);
+      this.editToggle = false;
     },
   },
 };

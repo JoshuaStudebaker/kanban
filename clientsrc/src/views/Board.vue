@@ -1,7 +1,7 @@
 <template>
   <div class="board container-fluid">
     <div class="row">
-      <div class="card offset-4 col-4 my-2 see-through">
+      <div class="card col-12 offset-lg-4 col-lg-4 my-2 see-through">
         <h1 class="text-dark text-shadow" v-if="board.title">{{board.title}}</h1>
         <h1 class="text-dark text-shadow" v-else>Loading...</h1>
         <h4 class="text-dark text-shadow">{{board.description}}</h4>

@@ -4,7 +4,7 @@
       <h1 class="card offset-4 col-4 text-dark see-through border-success">Welcome to your boards!</h1>
     </div>
     <div class="row">
-      <div class="card offset-4 col-4 my-2 p-1 border-success">
+      <div class="card offset-4 col-4 my-2 p-1 border-success see-through">
       <form class="form-inline" @submit.prevent="addBoard">
         <input class="form-control mx-2" type="text" placeholder="New Board Title" v-model="newBoard.title" required />
         <input class="form-control mx-2" type="text" placeholder="New Board Description" v-model="newBoard.description" />
@@ -13,8 +13,8 @@
       </div>
     </div>
     <div class="row">
-    <div class="card offset-4 col-4 mt-2 border-success" v-for="board in boards" :key="board.id">
-      <h3 class="mt-2"><router-link class="text-dark" :to="{name: 'board', params: {boardId: board.id}}">{{board.title}}</router-link></h3>
+    <div class="card offset-4 col-4 mt-2 border-success see-through" v-for="board in boards" :key="board.id">
+      <h1 class="mt-2"><router-link class="text-dark" :to="{name: 'board', params: {boardId: board.id}}">{{board.title}}</router-link></h1>
         <div class="card-body">
           <button class="btn btn-danger" @click="deleteBoard(board.id)">Delete</button>
         </div>
