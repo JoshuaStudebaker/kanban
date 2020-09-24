@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <h1>This is your home page.</h1>
+  <div class="home d-flex flex-column justify-content-center">
+    <h1 class="text-light ">Welcome to your Home Page</h1>
   </div>
 </template>
 
@@ -19,4 +19,10 @@ export default {
 
 
 <style scoped>
+  .home{
+    background-image: url("~@/assets/imgs/ocean.jpg");
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+  }
 </style>

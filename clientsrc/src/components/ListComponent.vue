@@ -1,5 +1,5 @@
 <template>
-  <div class="list-component col-12 my-3">
+  <div class="list-component col-4 my-3">
     <div class="card card-style m-2">
       <div class="card-header">
         <h5 class="card-title">{{ listProp.title }}<button class="btn btn-sm btn-danger mx-1" @click="deleteList(listProp.id)">Delete</button></h5>

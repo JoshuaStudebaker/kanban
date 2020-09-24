@@ -1,5 +1,5 @@
 <template>
-  <div class="border col-4 card">
+  <div class="border col-12 card">
     <div class="card-header">
     <h6 class='mt-2'>{{taskProp.title}} <button class="btn btn-sm btn-danger" @click="deleteTask(taskProp.id)">Delete</button></h6>
     <form class="form-inline my-2" @submit.prevent="editTask(taskProp.id)">

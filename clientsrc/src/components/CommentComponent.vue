@@ -1,10 +1,10 @@
 <template>
   <div class="border card my-2">
-    <h6>
+    <h6 class='mt-2'>
     {{commentProp.title}}
     <button class="btn btn-sm btn-danger" @click="deleteComment(commentProp.id)">Delete</button>
     </h6>
-    <form class="form-inline" @submit.prevent="editComment(commentProp.id)">
+    <form class="form-inline my-2" @submit.prevent="editComment(commentProp.id)">
           <input
             type="text"
             class="form-control"

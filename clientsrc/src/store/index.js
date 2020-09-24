@@ -90,25 +90,31 @@ export default new Vuex.Store({
       });
     },
     async deleteBoard({ commit }, id) {
-      if (await SweetAlert.sweetDelete()) {
+      if (await SweetAlert.sweetDelete("This board will be gone.")) {
         await api.delete("boards/" + id);
         commit("deleteBoard", id);
       }
     },
 
     async deleteList({ commit }, id) {
+      if (await SweetAlert.sweetDelete("This list will be gone.")) {
       await api.delete("lists/" + id);
       commit("deleteList", id);
+      }
     },
 
     async deleteTask({ commit }, payload) {
+      if (await SweetAlert.sweetDelete("This task will be gone.")) {
       await api.delete("tasks/" + payload.id);
       commit("deleteTask", payload);
+      }
     },
 
     async deleteComment({ commit }, payload) {
+      if (await SweetAlert.sweetDelete("This comment will be gone.")) {
       await api.delete("comments/" + payload.id);
       commit("deleteComment", payload);
+      }
     },
 
     addBoard({ commit, dispatch }, boardData) {
@@ -138,6 +144,7 @@ export default new Vuex.Store({
       try {
         let res = await api.put("boards/" + state.activeBoard.id, editData);
         commit("setActiveBoard", res.data);
+        SweetAlert.toast("Board Edited")
       } catch (error) {
         console.error(error);
       }
@@ -148,6 +155,7 @@ export default new Vuex.Store({
         let index = state.lists.findIndex((l) => l.id == res.data.id);
         state.lists.splice(index, 1, res.data);
         commit("setLists", state.lists);
+        SweetAlert.toast("List Edited")
       } catch (error) {
         console.error(error);
       }
@@ -163,6 +171,7 @@ export default new Vuex.Store({
         commit("setTasks", state.tasks);
         dispatch("getTasksByListId", res.data.listId);
         dispatch("getTasksByListId", editData.oldId);
+        SweetAlert.toast("Task Edited")
       } catch (error) {
         console.error(error);
       }
@@ -175,6 +184,7 @@ export default new Vuex.Store({
         );
         state.comments[res.data.taskId].splice(index, 1, res.data);
         commit("setComments", state.comments);
+        SweetAlert.toast("Comment Edited")
       } catch (error) {
         console.error(error);
       }

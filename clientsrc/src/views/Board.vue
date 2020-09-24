@@ -1,8 +1,8 @@
 <template>
   <div class="board container-fluid">
-    <h1 v-if="board.title">{{board.title}}</h1>
-    <h1 v-else>Loading...</h1>
-    <h4>{{board.description}}</h4>
+    <h1 class="pt-3 text-grey-dark text-shadow" v-if="board.title">{{board.title}}</h1>
+    <h1 class="text-grey-dark text-shadow" v-else>Loading...</h1>
+    <h4 class="text-grey-dark text-shadow">{{board.description}}</h4>
     <form class="form-inline mx-3" @submit.prevent="editActiveBoard">
           <input
             type="text"
@@ -32,7 +32,9 @@
       </div>
       <button type="submit" class="btn btn-success">Add List</button>
     </form>
+    <div class="row">
     <list-component v-for="iList in lists" :key="iList.id" :listProp="iList" />
+    </div>
   </div>
 </template>
 
@@ -79,3 +81,14 @@ export default {
   },
 };
 </script>
+
+<style>
+.board{
+    background-image: url("~@/assets/imgs/forest.jpg");
+    background-position: center;
+    background-size: cover;
+  }
+  .text-shadow{
+    text-shadow: 1px 1px #030303
+  }
+</style>
