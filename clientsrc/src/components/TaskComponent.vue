@@ -1,40 +1,72 @@
 <template>
-  <div class="border col-12 card mt-1" @dragstart="movetask()">
+  <div class="border col-12 card mt-1 hover-task" @dragstart="movetask()">
     <div class="card-body">
-    <h5 class='mt-2'>{{taskProp.title}} <i class="fa fa-trash ml-1 text-danger" @click="deleteTask(taskProp.id)"></i></h5>
-    <i class="fa fa-pencil-alt text-info" aria-hidden="true" @click="editToggle = !editToggle"></i>
-    <form v-if="editToggle" class="form-inline my-2" @submit.prevent="editTask(taskProp.id)">
-      <input
-        type="text"
-        class="form-control mr-2"
-        placeholder="New Task Title..."
-        aria-describedby="helpId"
-        v-model="editedTask.title"
-      />
-      <div class="form-group">
-        <label for="exampleFormControlSelect2">Choose a list:</label>
-        <select class="form-control mx-2" id="exampleFormControlSelect2" v-model="editedTask.listId">
-          <option v-for="iList in lists" :key="iList.id" :value="iList.id">{{iList.title}}</option>
-        </select>
-      </div>
-      <button type="submit" class="btn btn-warning">Edit Task</button>
-    </form>
-    <form class="form-inline my-2" @submit.prevent="createComment">
-      <div class="form-group">
+      <h5 class="mt-2">
+        {{ taskProp.title }}
+        <i
+          class="fa fa-trash ml-1 text-danger"
+          @click="deleteTask(taskProp.id)"
+        ></i>
+      </h5>
+      <i
+        class="fa fa-pencil-alt text-info"
+        aria-hidden="true"
+        @click="editToggle = !editToggle"
+      ></i>
+      <form
+        v-if="editToggle"
+        class="form-inline my-2"
+        @submit.prevent="editTask(taskProp.id)"
+      >
         <input
           type="text"
-          class="form-control"
-          v-model="newComment.title"
-          placeholder="Enter here..."
-          required
+          class="form-control mr-2"
+          placeholder="New Task Title..."
+          aria-describedby="helpId"
+          v-model="editedTask.title"
         />
-      </div>
-      <button type="submit" class="btn btn-success mx-3">Add Comment</button>
-    </form>
+        <div class="form-group">
+          <label for="exampleFormControlSelect2">Choose a list:</label>
+          <select
+            class="form-control mx-2"
+            id="exampleFormControlSelect2"
+            v-model="editedTask.listId"
+          >
+            <option v-for="iList in lists" :key="iList.id" :value="iList.id">{{
+              iList.title
+            }}</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-warning">Edit Task</button>
+      </form>
+      <form class="form-inline my-2" @submit.prevent="createComment">
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            v-model="newComment.title"
+            placeholder="Enter here..."
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-success mx-3">Add Comment</button>
+      </form>
     </div>
-    <i class="far fa-comments text-info mb-2" aria-hidden="true" @click="commentToggle = !commentToggle"> View Comments <span v-if="this.comments.length">({{this.comments.length}})</span><span v-else>(0)</span></i>
+    <i
+      class="far fa-comments text-info mb-2"
+      aria-hidden="true"
+      @click="commentToggle = !commentToggle"
+    >
+      View Comments
+      <span v-if="this.comments.length">({{ this.comments.length }})</span
+      ><span v-else>(0)</span></i
+    >
     <div v-if="commentToggle">
-      <comment-component v-for="iComment in comments" :key="iComment.id" :commentProp="iComment" />
+      <comment-component
+        v-for="iComment in comments"
+        :key="iComment.id"
+        :commentProp="iComment"
+      />
     </div>
   </div>
 </template>
@@ -91,21 +123,24 @@ export default {
       this.$store.dispatch("editTask", this.editedTask);
       this.editToggle = false;
     },
-    movetask(){
-      event.dataTransfer.setData("data",JSON.stringify(this.taskProp))
-      event.dataTransfer.setData("list", this.taskProp.listId)
-    }
+    movetask() {
+      event.dataTransfer.setData("data", JSON.stringify(this.taskProp));
+      event.dataTransfer.setData("list", this.taskProp.listId);
+    },
   },
 };
 </script>
 
 <style>
-.far:hover{
-  cursor:pointer;
-}
-
-.fa:hover{
+.far:hover {
   cursor: pointer;
 }
 
+.fa:hover {
+  cursor: pointer;
+}
+
+.hover-task:hover {
+  cursor: pointer;
+}
 </style>
