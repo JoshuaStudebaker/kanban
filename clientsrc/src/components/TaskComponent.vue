@@ -96,6 +96,9 @@ export default {
 </script>
 
 <style>
+.far:hover{
+  cursor:pointer;
+}
 
 .fa:hover{
   cursor: pointer;
