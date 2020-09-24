@@ -32,7 +32,7 @@
       <button type="submit" class="btn btn-success mx-3">Add Comment</button>
     </form>
     </div>
-    <i class="far fa-comments text-info mb-2" aria-hidden="true" @click="commentToggle = !commentToggle"> View Comments ({{this.comments.length}})</i>
+    <i class="far fa-comments text-info mb-2" aria-hidden="true" @click="commentToggle = !commentToggle"> View Comments <span v-if="this.comments.length">({{this.comments.length}})</span><span v-else>(0)</span></i>
     <div v-if="commentToggle">
       <comment-component v-for="iComment in comments" :key="iComment.id" :commentProp="iComment" />
     </div>
