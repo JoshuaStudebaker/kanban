@@ -26,7 +26,6 @@
             </div>
             <button type="submit" class="btn btn-success">Add Task</button>
           </form>
-        
       </div>
       <div class="card-body shadow row" dropzone="zone" @dragover.prevent @drop.prevent="moveTask()">
           <task-component v-for="(iTask,index) in tasks" :key="iTask.id" :taskProp="iTask" draggable="true" @dragstart="reorderTask(iTask, index)" />

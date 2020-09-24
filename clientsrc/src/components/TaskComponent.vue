@@ -1,5 +1,5 @@
 <template>
-  <div class="border col-12 card" @dragstart="movetask()">
+  <div class="border col-12 card mt-1" @dragstart="movetask()">
     <div class="card-body">
     <h5 class='mt-2'>{{taskProp.title}} <i class="fa fa-trash ml-1 text-danger" @click="deleteTask(taskProp.id)"></i></h5>
     <i class="fa fa-pencil-alt text-info" aria-hidden="true" @click="editToggle = !editToggle"></i>
