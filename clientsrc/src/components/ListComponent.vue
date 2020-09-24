@@ -28,8 +28,8 @@
           </form>
         
       </div>
-      <div class="card-body shadow row">
-          <task-component v-for="iTask in tasks" :key="iTask.id" :taskProp="iTask" />
+      <div class="card-body shadow row" dropzone="zone" @dragover.prevent @drop.prevent="moveTask()">
+          <task-component v-for="(iTask,index) in tasks" :key="iTask.id" :taskProp="iTask" draggable="true" @dragstart="reorderTask(iTask, index)" />
       </div>
     </div>
   </div>
@@ -60,6 +60,19 @@ export default {
     },
   },
   methods: {
+    reorderTask(task,index){
+      this.$store.dipsatch("setTaskToMove", {task: task, oldList: this.listProp})
+    },
+    moveTask(){
+      let task = JSON.parse(event.dataTransfer.getData("data"))
+      let moveData = {
+        oldId: event.dataTransfer.getData("list"),
+        id: task.id,
+        listId: this.listProp.id
+      };
+      console.log(moveData)
+      this.$store.dispatch("editTask",moveData);
+    },
     createTask() {
       let payload = {
         title: this.newTask.title,

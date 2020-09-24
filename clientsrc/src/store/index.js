@@ -14,8 +14,12 @@ export default new Vuex.Store({
     lists: [],
     tasks: {},
     comments: {},
+    tempTask: {}
   },
   mutations: {
+    setTaskToMove(state, taskData){
+      state.tempTask = taskData
+    },
     setUser(state, user) {
       state.user = user;
     },

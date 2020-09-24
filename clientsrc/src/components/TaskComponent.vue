@@ -1,5 +1,5 @@
 <template>
-  <div class="border col-12 card">
+  <div class="border col-12 card" @dragstart="movetask()">
     <div class="card-body">
     <h5 class='mt-2'>{{taskProp.title}} <i class="fa fa-trash ml-1 text-danger" @click="deleteTask(taskProp.id)"></i></h5>
     <i class="fa fa-pencil-alt text-info" aria-hidden="true" @click="editToggle = !editToggle"></i>
@@ -32,7 +32,7 @@
       <button type="submit" class="btn btn-success mx-3">Add Comment</button>
     </form>
     </div>
-    <i class="far fa-comments text-info mb-2" aria-hidden="true" @click="commentToggle = !commentToggle"> View Comments ({{this.comments.length}})</i>
+    <i class="far fa-comments text-info mb-2" aria-hidden="true" @click="commentToggle = !commentToggle"> View Comments <span v-if="this.comments.length">({{this.comments.length}})</span><span v-else>(0)</span></i>
     <div v-if="commentToggle">
       <comment-component v-for="iComment in comments" :key="iComment.id" :commentProp="iComment" />
     </div>
@@ -91,6 +91,10 @@ export default {
       this.$store.dispatch("editTask", this.editedTask);
       this.editToggle = false;
     },
+    movetask(){
+      event.dataTransfer.setData("data",JSON.stringify(this.taskProp))
+      event.dataTransfer.setData("list", this.taskProp.listId)
+    }
   },
 };
 </script>
