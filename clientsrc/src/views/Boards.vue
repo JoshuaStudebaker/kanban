@@ -1,18 +1,24 @@
 <template>
-  <div class="boards container fluid">
-    <h1>Welcome to your boards!</h1>
-    <div class="card">
-    <form @submit.prevent="addBoard">
-      <input type="text" placeholder="title" v-model="newBoard.title" required />
-      <input type="text" placeholder="description" v-model="newBoard.description" />
-      <button type="submit">Create Board</button>
-    </form>
+  <div class="boards container-fluid d-flex flex-column justify-content-center">
+    <div class="row">
+      <h1 class="card offset-4 col-4 text-dark see-through border-success">Welcome to your boards!</h1>
     </div>
-    <div class="card" v-for="board in boards" :key="board.id">
-      <h3><router-link :to="{name: 'board', params: {boardId: board.id}}">Board Name: {{board.title}}</router-link></h3>
+    <div class="row">
+      <div class="card offset-4 col-4 my-2 p-1 border-success">
+      <form class="form-inline" @submit.prevent="addBoard">
+        <input class="form-control mx-2" type="text" placeholder="New Board Title" v-model="newBoard.title" required />
+        <input class="form-control mx-2" type="text" placeholder="New Board Description" v-model="newBoard.description" />
+        <button class="btn btn-success" type="submit">Create Board</button>
+      </form>
+      </div>
+    </div>
+    <div class="row">
+    <div class="card offset-4 col-4 mt-2 border-success" v-for="board in boards" :key="board.id">
+      <h3 class="mt-2"><router-link class="text-dark" :to="{name: 'board', params: {boardId: board.id}}">{{board.title}}</router-link></h3>
         <div class="card-body">
           <button class="btn btn-danger" @click="deleteBoard(board.id)">Delete</button>
         </div>
+    </div>
     </div>
   </div>
 </template>
@@ -47,3 +53,19 @@ export default {
   },
 };
 </script>
+
+<style>
+.boards{
+    background-image: url("~@/assets/imgs/sand.jpg");
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+  }
+
+  .text-shadow{
+    text-shadow: 1px 1px #030303
+  }
+  .see-through{
+    background-color: hsla(218, 19%, 89%, 0.75);
+  }
+</style>
