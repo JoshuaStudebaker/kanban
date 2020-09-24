@@ -20,11 +20,10 @@ export default {
     }
   },
   components: {
-    Navbar
-  }
+    Navbar,
+  },
 };
 </script>
-
 
 <style lang="scss">
 @import "./assets/_variables.scss";
